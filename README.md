@@ -36,3 +36,22 @@
 
     * Tic-Tac-Toe is a zero-sum game. This means that if both players play optimally, the game will always end in a tie.
     * However, with some simple strategies, you can increase your chances of winning.
+
+
+## Used Technologies
+The site is designed using:
+
+* HTML
+* CSS
+* W3.CSS stylesheet framework
+* JavaScript
+
+Some other utilities were used:
+
+* VS Code as Integrated Development Environment.
+* GitHub to store code and version control.
+* Grammarly to catch grammar slips and improve the text.
+* Fooocus (https://github.com/lllyasviel/Fooocus) to generate the background image.
+* Balsamiq Wireframes.
+
+# Development
