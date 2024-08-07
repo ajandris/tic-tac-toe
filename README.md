@@ -115,6 +115,15 @@ The Tic-Tac-Toe game has entertainment purpose and can be used for everyone will
 As a site owner I would like to show everyone my skills in HTML, CSS and JavaScript with automated testing, so everyone assessing my skills can evaluate them.
 
 ### Scope plane
+At the end of development will be delivered:
+* Implemented User Stories
+* User Manual as a section in README.md file
+* Development documentation in README.md file, in particular:
+  * Requirements,
+  * Functional specifications,
+  * Testing process,
+  * Deployment to GitHub pages.
+* Version control using Git and GitHub
 
 ### Structure plane
 
