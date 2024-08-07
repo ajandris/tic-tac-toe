@@ -57,6 +57,34 @@ Some other utilities were used:
 # Development
 This part is dedicated to the page's development.
 
+## To Do
+> Expand and change ToDo as development progresses.
+
+### Fill the details in README.md
+- [ ] Strategy plane
+- [ ] Scope plane
+- [ ] Structure plane
+- [ ] Skeleton Plane
+- [ ] Surface Plane
+
+### Functionality description (Structure plane)
+
+### Page designs
+- [ ] Game page
+- [ ] 404 error page
+
+### Testing
+- [ ] Testing description
+- [ ] Validator test screenshots for each page
+
+- [ ] JEST installation
+- [ ] Test file structure
+
+
+### Other
+- [ ] Acknowledgements
+- [ ] Site's Description
+
 ## The Development process
 The Development of this site includes consequently following the stages described in detail in the next sections:
 
@@ -67,3 +95,31 @@ The Development of this site includes consequently following the stages describe
 * The last in Development comes the Surface plane, where all design is completed for various screen sizes and audiences. This plane includes all JavaScript functionality.
 * Then comes the Site testing, which is performed manually using Jigsaw (CSS) and W3 Validator (HTML). Google’s Lighthouse test is used to test the site’s performance.
 The site's functionality development falls under Test Driven Development (TDD) and is tested using JEST.
+
+### Strategy plane
+
+### Scope plane
+
+### Structure plane
+
+The structure plane is concerned with design elements – what will be on pages. 
+Wireframes allow seeing what will be on pages. There is no detailed design or colours (in most cases); 
+schematic elements only are placed on a page.
+
+The game's behaviour requirements are described in a separate section below.
+
+#### Game page wireframe
+
+<img src="assets/readme/wireframes/the-game.jpg" alt="The Game Page wireframe" style="width:60%; height:60%">
+
+#### 404 Error page wireframe
+
+<img src="assets/readme/wireframes/error-page.jpg" alt="404 Error page wireframe" style="width:60%; height:60%">
+
+### Skeleton Plane
+
+### Surface Plane
+
+### Functionality description
+
+### Testing
