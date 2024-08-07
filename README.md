@@ -98,6 +98,22 @@ The site's functionality development falls under Test Driven Development (TDD) a
 
 ### Strategy plane
 
+#### User stories
+
+* As a player:
+   * [USP-1] I want to play Tic-Tac-Toe game
+   * [USP-2] I want to have in the game three difficulty levels: Easy, Moderate and Advanced
+   * [USP-3] I want to add Settings section where user can choose what symbol to play, whether to start game and what difficulty level to play
+   * [USP-4] I want to count score of the game series
+* As a site owner:
+  * [USO-1] I want to implement Tic-Tac-Toe game using JavaScript, HTML and CSS only
+  * [USO-2] I want to improve game's accessibility by adding 404 Error (file not found) page with a link to the game page
+
+#### Intended audience
+The Tic-Tac-Toe game has entertainment purpose and can be used for everyone willing to play the game.
+
+As a site owner I would like to show everyone my skills in HTML, CSS and JavaScript with automated testing, so everyone assessing my skills can evaluate them.
+
 ### Scope plane
 
 ### Structure plane
