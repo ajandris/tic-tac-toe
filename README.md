@@ -314,6 +314,23 @@ It has two navigational features:
 2. A link to the game page is shown to the user
 
 ### Surface Plane
+All pages are designed to adapt seamlessly to various screen sizes. Whether it's a desktop, tablet, or mobile screen, the user experience remains consistent and optimal.
+
+Due to the small project size, there is no design mock-up, and all elements will be built during development using the try-and-fix method.
+
+***Colour pattern***
+
+* Page background:
+* Font colour: 
+* Game board - empty cell: #FFFFFF
+* Game board - occupied cell: grey
+ 
+
+***Other***
+Game board borders: 1px, black 
+
+The main content box background colour with opacity: rgba(30, 42, 48, 0.75)
+
 
 ### Testing
 
