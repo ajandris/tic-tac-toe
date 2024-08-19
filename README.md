@@ -67,7 +67,7 @@ This part is dedicated to the page's development.
 - [X] Skeleton Plane
 - [ ] Surface Plane
 
-### Functionality description (Structure plane)
+### Functionality description
 
 ### Page designs
 - [ ] Game page
@@ -77,6 +77,8 @@ This part is dedicated to the page's development.
 - [ ] Testing description
 - [ ] Validator test screenshots for each page
 
+### Deployment
+
 - [ ] JEST installation
 - [ ] Test file structure
 
@@ -84,6 +86,8 @@ This part is dedicated to the page's development.
 ### Other
 - [ ] Acknowledgements
 - [ ] Site's Description
+- [ ] Update wireframes
+- [ ] Update gameplay in introduction
 
 ## The Development process
 The Development of this site includes consequently following the stages described in detail in the next sections:
@@ -311,5 +315,13 @@ It has two navigational features:
 
 ### Surface Plane
 
-
 ### Testing
+
+### Deployment
+
+### Acknowledgements
+
+### References
+_Word To MD_, online, https://word2md.com/. Last accessed 19/08/2024
+
+_W3Schools_, https://www.w3schools.com/. Last accessed 24/08/2024
