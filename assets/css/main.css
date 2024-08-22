@@ -18,6 +18,7 @@ h1{
 #message{
     margin-left: 2px;
     margin-right: 2px;
+    height: 70px;
 }
 
 #message p{

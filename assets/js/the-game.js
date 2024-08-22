@@ -39,6 +39,19 @@ const board = {
 }
 
 /**
+ * game-wide messages for displaying to a player
+ *
+ * @type {{msg4: string, msg3: string, msg2: string, msg1: string}}
+ */
+
+const messages = {
+    msg1: "Congratulations! You won.",
+    msg2: "I won. Good luck next time.",
+    msg3: "Draw.",
+    msg4: "Press \"Clear\" to clear the board and start another game."
+}
+
+/**
  * Sets game status
  *
  * @param gameStatus string["before-start", "game-started", "game-finished"]
@@ -126,32 +139,86 @@ function incrementScore(scoreId) {
 *
 *****************************************************************/
 
-function evBtGiveUp(e){
+/**
+ * Setting message in the message box
+ *
+ * @param msgType What type of message to show
+ * @param msgFirstLine Message's first line text
+ * @param msgSecondLine Message's second line text
+ */
+const setMessage = (msgType, msgFirstLine, msgSecondLine) =>{
+    const msgBaseClasses = ["w3-panel", "w3-center"];
+    let objMessages = getDOMObjectById("message");
 
+    objMessages.classList = [];
+    msgBaseClasses.forEach((item) => {
+        objMessages.classList.add(item);
+    })
+
+    switch(msgType){
+        case "alert":
+            objMessages.classList.add("w3-yellow");
+            break;
+        case "ok":
+            objMessages.classList.add("w3-green");
+            break;
+        default:
+            console.log("Unknown message type: " + msgType);
+    }
+
+    document.getElementById("msg-line-1").innerText = msgFirstLine;
+    document.getElementById("msg-line-2").innerText = msgSecondLine;
 };
 
-function evBtSubmitMove(e){
 
-};
-
-function evBtStartClear(e){
-
+/**
+ * when event fired on button Give Up
+ */
+function evBtGiveUp(){
 };
 
 /**
- * Check player clicks (moves) on the game board
+ * when event fired on button Submit move
+ */
+function evBtSubmitMove(){
+};
+
+/**
+ * when event fired on button Start game/ Clear
+ */
+function evBtStartClear(){
+};
+
+/**
+ * Manages Player clicks (moves) on the game board
  *
- * @param domObject
+ * @param domObject The object event has fired on
  */
 function evCellClick(domObject){
-    if ("occupied" in domObject.classList){
-        console.log("cell is occupied");
+
+    if (game.status != "game-started"){
+        setMessage("alert", "Game is not started", "Click on \"Start game\" button");
+        return;
+    }
+
+    if (domObject.classList.contains("occupied")){
+        setMessage("alert", "Wrong move.", "Click on the unoccupied box.");
+        return;
+    } else {
+        setMessage("ok", "", "");
+    }
+
+    if (!domObject.classList.contains("occupied") && domObject.innerText !== "") {
+        domObject.innerText = "";
+        return;
+    }
+
+    // removing all symbols from unoccupied cells
+    for (let i=1; i < 10; i++){
+        setDOMElementValue("cell-" + i.toString(), "");
     }
     domObject.innerText = game.player;
 };
-
-
-
 
 
 /* **************************************************************
@@ -220,7 +287,6 @@ let cellId="";
 for (let i= 1; i < 10; i++){
     cellId = "cell-" + i.toString();
     document.getElementById(cellId).addEventListener("click", (e) => {
-        console.log("clicked on ==== " + e.target);
         evCellClick(e.target);
     });
 }
