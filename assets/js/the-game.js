@@ -185,8 +185,19 @@ function evBtSubmitMove(){
 
 /**
  * when event fired on button Start game/ Clear
+ *
+ * Allows game to be started
  */
 function evBtStartClear(){
+    game.status = "game-started";
+    // enables buttons
+    document.getElementById("bt-give-up").disabled = false;
+    document.getElementById("bt-start-clear").disabled = true;
+    // disables buttons
+    document.getElementById("settings-starts").disabled = true;
+    document.getElementById("settings-player").disabled = true;
+    document.getElementById("settings-level").disabled = true;
+
 };
 
 /**
@@ -197,7 +208,7 @@ function evBtStartClear(){
 
 function evCellClick(domObject){
 
-    if (game.status != "game-started"){
+    if (game.status !== "game-started"){
         setMessage("alert", "Game is not started", "Click on \"Start game\" button");
         return;
     }
