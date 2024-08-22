@@ -6,10 +6,86 @@ body{
 
 h1{
     text-align: center;
+    font-weight: bolder;
+    font-size: 2em;
 }
 
 #playground{
     width: 60%;
     margin: 0 auto 0 auto;
-    border: 1px solid black;
+}
+
+#message{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#message p{
+    margin: 2px;
+}
+
+.msg-first-line{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+fieldset{
+    margin-top: 2px;
+}
+
+fieldset legend{
+    font-weight: bold;
+    background-color: #eedfa5;
+}
+
+fieldset p{
+    margin: 0;
+}
+.buttons-area{
+    background-color: #FFEBCD;
+}
+
+button{
+    margin-top: 10px;
+}
+
+.game-container {
+    height: 200px;
+    font-family: Arial, sans-serif;
+    background-color: #FFEBCD;
+    padding-top: 25px;
+}
+
+.game-board{
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background-color: #FFFFFF;
+    font-size: 2em;
+}
+
+.occupied{
+    background-color: lightgray;
+}
+
+.central-column{
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+}
+
+.central-row{
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+
+@media screen and (max-width: 660px) { /*  for mobile screens*/
+    #playground{
+        width:95%;
+    }
 }

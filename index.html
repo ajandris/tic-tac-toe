@@ -3,26 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <title>TIC-TAC-TOE game</title>
 </head>
 <body>
 <h1>TIC-TAC-TOE</h1>
 <div id="playground">
+
+    <!-- Settings block -->
+
     <div id="settings">
-        <p>Settings</p>
+        <fieldset>
+            <legend>Settings</legend>
+            <div class="w3-row w3-center">
+                <div class="w3-col w3-third">
+                    <p>Player: <span id="settings-player">O</span></p>
+                </div>
+                <div class="w3-col w3-third">
+                    <p>Level: <span id="settings-level">Easy</span></p>
+                </div>
+                <div class="w3-col w3-third">
+                    <p>Starts: <span id="settings-starts">Player</span></p>
+                </div>
+            </div>
+        </fieldset>
     </div>
+
+    <!-- Score block -->
+
     <div id="score">
-        <p>Score</p>
+        <fieldset>
+            <legend>Score</legend>
+            <div class="w3-row w3-center">
+                <div class="w3-col w3-third">
+                    <p>Player: <span id="score-player">0</span></p>
+                </div>
+                <div class="w3-col w3-third">
+                    <p>Computer: <span id="score-computer">0</span></p>
+                </div>
+                <div class="w3-col w3-third">
+                    <p>Draw: <span id="score-draw">0</span></p>
+                </div>
+            </div>
+            <div class="w3-row">
+                <div class="w3-col s12 w3-center">
+                    <button>Reset score</button>
+                </div>
+            </div>
+        </fieldset>
     </div>
-    <div id="message">
-        <p>Message</p>
+
+    <!-- Messages -->
+
+    <div id="message" class="w3-panel w3-green w3-center">
+        <p class="msg-first-line" id="msg-line-1">Welcome to the game!</p>
+        <p class="msg-second-line" id="msg-line-2">Set up the game and press "Start"</p>
     </div>
-    <div id="game">
-        <p>Game</p>
+
+    <!-- Game board -->
+
+    <div id="game w3-row">
+        <div class="w3-row w3-center w3-border">
+            <div class="w3-col w3-center">
+                <div class="game-container w3-center">
+                    <table class="w3-center game-board">
+                        <tr>
+                            <td id="cell-1" class="cell"></td>
+                            <td id="cell-2" class="cell central-column"></td>
+                            <td id="cell-3" class="cell"></td>
+                        </tr>
+                        <tr>
+                            <td id="cell-4" class="cell central-row"></td>
+                            <td id="cell-5" class="cell central-column  central-row"></td>
+                            <td id="cell-6" class="cell  central-row"></td>
+                        </tr>
+                        <tr>
+                            <td id="cell-7" class="cell"></td>
+                            <td id="cell-8" class="cell central-column"></td>
+                            <td id="cell-9" class="cell"></td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+
+        <!-- buttons -->
+        <div class="w3-row w3-center buttons-area">
+            <div class="w3-col w3-third">
+                <button id="bt-give-up">Give Up!</button>
+            </div>
+            <div class="w3-col w3-third">
+                <button id="bt-submit-move">Submit move</button>
+            </div>
+            <div class="w3-col w3-third">
+                <button id="bt-start-clear">Start</button>
+            </div>
+        </div>
+        <!-- fake row -->
+        <div class="w3-row buttons-area">
+            <div class="w3-col">
+                <p></p>
+            </div>
+        </div>
     </div>
+
+    <!-- Setup block -->
+
     <div id="setup">
-        <p>Setup</p>
+        <fieldset>
+            <legend>Setup</legend>
+            <div class="w3-row w3-center">
+                <div class="w3-col w3-third">
+                    <label for="setup-player">Player symbol: </label>
+                    <select name="setup-player" id="setup-player">
+                        <option value="cross">X</option>
+                        <option value="donut">O</option>
+                    </select>
+                </div>
+                <div class="w3-col w3-third">
+                    <label for="setup-level">Level: </label>
+                    <select name="setup-level" id="setup-level">
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                </div>
+                <div class="w3-col w3-third">
+                    <label for="setup-starts">Starts: </label>
+                    <select name="setup-starts" id="setup-starts">
+                        <option value="player" selected>Player</option>
+                        <option value="computer">Computer</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
     </div>
 </div>
 
