@@ -13,12 +13,13 @@
  */
 const game = {
     player: "X",
-    starts: "payer",
+    starts: "player",
     level: "easy",
     scorePlayer: 0,
     scoreComputer: 0,
     scoreDraw: 0,
-    status: "before-start" // status values: before-start, game-started, game-finished
+    status: "before-start", // status values: before-start, game-started, game-finished
+    moveCount: 0
 }
 
 /**
@@ -104,7 +105,7 @@ function getDOMElementValue(objectId){
 function resetScore(){
     let scoreIds = ["score-player", "score-computer", "score-draw"];
     for (let val in scoreIds){
-        setDOMElementValue(val, 0);
+        setDOMElementValue(scoreIds[val], 0);
     }
 }
 
@@ -117,4 +118,109 @@ function incrementScore(scoreId) {
     let score = getDOMElementValue(scoreId);
     score = score + 1;
     setDOMElementValue(scoreId, score);
+}
+
+/* **************************************************************
+*
+* Game logic
+*
+*****************************************************************/
+
+function evBtGiveUp(e){
+
+};
+
+function evBtSubmitMove(e){
+
+};
+
+function evBtStartClear(e){
+
+};
+
+/**
+ * Check player clicks (moves) on the game board
+ *
+ * @param domObject
+ */
+function evCellClick(domObject){
+    if ("occupied" in domObject.classList){
+        console.log("cell is occupied");
+    }
+    domObject.innerText = game.player;
+};
+
+
+
+
+
+/* **************************************************************
+*
+* Adding event listeners
+*
+****************************************************************/
+
+/*
+ * Synchronising player setup with settings display
+ */
+document.getElementById("setup-player").addEventListener("change", (e)=>{
+        let symbol = "";
+        switch(e.target.value){
+            case "donut":
+                symbol = "O";
+                break;
+            case "cross":
+                symbol = "X";
+                break;
+            default:
+                console.log("Impossible value in setup-player select");
+                return;
+        }
+        game.player = symbol;
+        setDOMElementValue("settings-player", symbol);
+    }
+)
+
+/*
+ * Synchronising level setup with settings display
+ */
+document.getElementById("setup-level").addEventListener("change", (e)=>{
+        let symbol = e.target.value;
+        game.level = symbol;
+        symbol = symbol[0].toUpperCase() + symbol.substring(1);
+        setDOMElementValue("settings-level", symbol);
+    }
+)
+
+/*
+ * Synchronising who starts with settings display
+ */
+document.getElementById("setup-starts").addEventListener("change", (e)=>{
+        let symbol = e.target.value;
+        game.starts = symbol;
+        symbol = symbol[0].toUpperCase() + symbol.substring(1);
+        setDOMElementValue("settings-starts", symbol);
+    }
+)
+
+/*
+ * Resets score
+ */
+document.getElementById("bt-reset").addEventListener("click", resetScore);
+
+/*
+* Listeners for the game buttons
+ */
+
+document.getElementById("bt-give-up").addEventListener("click", evBtGiveUp());
+document.getElementById("bt-submit-move").addEventListener("click", evBtSubmitMove());
+document.getElementById("bt-start-clear").addEventListener("click", evBtStartClear());
+
+let cellId="";
+for (let i= 1; i < 10; i++){
+    cellId = "cell-" + i.toString();
+    document.getElementById(cellId).addEventListener("click", (e) => {
+        console.log("clicked on ==== " + e.target);
+        evCellClick(e.target);
+    });
 }
