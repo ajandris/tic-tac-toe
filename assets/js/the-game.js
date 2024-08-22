@@ -194,6 +194,7 @@ function evBtStartClear(){
  *
  * @param domObject The object event has fired on
  */
+
 function evCellClick(domObject){
 
     if (game.status != "game-started"){
@@ -217,7 +218,12 @@ function evCellClick(domObject){
     for (let i=1; i < 10; i++){
         setDOMElementValue("cell-" + i.toString(), "");
     }
+
     domObject.innerText = game.player;
+
+    // enables button "Submit move"
+    let btObjSubmitMove = getDOMObjectById("bt-submit-move");
+    btObjSubmitMove.disabled = false;
 };
 
 
