@@ -23,11 +23,11 @@ const game = {
 }
 
 /**
- * The game board DOM Object ids
+ * The game board DOM Object id for lines and center
  *
- * @type {{row1: string[], centre: string, row3: string[], col2: string[], row2: string[], col3: string[], col1: string[]}}
- *
+ * @type {{allLines: string[][], row1: string[], diag1: string[], diag2: string[], centre: string, row3: string[], col2: string[], row2: string[], col3: string[], col1: string[]}}
  */
+
 const board = {
     centre: "cell-5",
     row1: ["cell-1", "cell-2","cell-3"],
@@ -35,7 +35,20 @@ const board = {
     row3: ["cell-7", "cell-8","cell-9"],
     col1: ["cell-1", "cell-4","cell-7"],
     col2: ["cell-2", "cell-5","cell-8"],
-    col3: ["cell-3", "cell-6","cell-9"]
+    col3: ["cell-3", "cell-6","cell-9"],
+    diag1: ["cell-1", "cell-5", "cell-9"],
+    diag2: ["cell-3", "cell-5", "cell-7"]
+
+/*
+    allLines: function(){
+        let rez = [];
+        rez.push(this.row1);
+        rez.push(this.row2);
+        rez.push(this.row3);
+        return rez;
+    }
+*/
+//    allLines: [self.row1, self.row2, self.row3, self.col1, self.col2, self.col3, self.diag1, self.diag2]
 }
 
 /**
@@ -49,27 +62,6 @@ const messages = {
     msg2: "I won. Good luck next time.",
     msg3: "Draw.",
     msg4: "Press \"Clear\" to clear the board and start another game."
-}
-
-/**
- * Sets game status
- *
- * @param gameStatus string["before-start", "game-started", "game-finished"]
- */
-function setGameStatus(gameStatus){
-    switch(gameStatus){
-        case "before-start":
-            game.status = gameStatus;
-            break;
-        case "game-started":
-            game.status = gameStatus;
-            break;
-        case "game-finished":
-            game.status = gameStatus;
-            break;
-        default:
-            console.log("Wrong game status given");
-    }
 }
 
 /**
@@ -187,7 +179,7 @@ const setMessage = (msgType, msgFirstLine, msgSecondLine) =>{
 /**
  * Resets the game to a starting position
  */
-const resetGame = () =>{
+function resetGame(){
     game.status = "before-start";
     game.moveCount = 0;
     document.getElementById("bt-start-clear").innerText = "Start game";
@@ -240,11 +232,72 @@ function evBtGiveUp(){
     };
 };
 
+
 /**
- * when event fired on button Submit move
+ * Check for a victory condition
+ * @param whosCondition "player" or "computer"
+ * @returns {string[]} a winning line or an empty array
+ */
+
+function checkVictoryCondition(whosCondition){
+
+    // finding which symbol to look for
+
+    let symbol = "";
+    switch(whosCondition){
+        case "player":
+            symbol = game.player;
+            break;
+        case "computer":
+            symbol = (game.player === "O")? "X": "O";
+            break;
+    }
+
+    // checking for a winning line
+
+    let allPlayerSymbols = false;
+    let line = "";
+    for (let key in board){
+        if (["centre"].includes(key)){ continue; }
+        allPlayerSymbols = false;
+        for (let key2 in board[key]){
+            console.log(board[key][key2]);
+            if(getDOMElementValue(board[key][key2]) !== symbol ){
+                break;
+            }
+        }
+        if (allPlayerSymbols){
+            return board[key];
+        }
+    }
+    return [];
+}
+
+/**
+ * When clicked on button "Submit move"
  */
 function evBtSubmitMove(){
+    // adds class "occupied" to player move
+    let cell = null;
+    for (let i=1; i< 10; i++){
+        cell = getDOMObjectById("cell-" + i.toString());
+        if (cell.innerText !== "" && !cell.classList.contains("occupied")){
+            cell.classList.add("occupied");
+        }
+    }
+
+    let winnerLine = checkVictoryCondition("player");
+    if(winnerLine !== []){
+        playerWon(winnerLine);
+    }
 };
+
+/**
+ * Sets visuals and game conditions when player is a winner
+ */
+function playerWon(){
+
+}
 
 /**
  * when event fired on button Start game/ Clear
