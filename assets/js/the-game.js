@@ -25,7 +25,7 @@ const game = {
 /**
  * The game board DOM Object id for lines and center
  *
- * @type {{allLines: string[][], row1: string[], diag1: string[], diag2: string[], centre: string, row3: string[], col2: string[], row2: string[], col3: string[], col1: string[]}}
+ * @type {{row1: string[], diag1: string[], diag2: string[], centre: string, row3: string[], col2: string[], row2: string[], col3: string[], col1: string[]}}
  */
 
 const board = {
@@ -38,17 +38,6 @@ const board = {
     col3: ["cell-3", "cell-6","cell-9"],
     diag1: ["cell-1", "cell-5", "cell-9"],
     diag2: ["cell-3", "cell-5", "cell-7"]
-
-/*
-    allLines: function(){
-        let rez = [];
-        rez.push(this.row1);
-        rez.push(this.row2);
-        rez.push(this.row3);
-        return rez;
-    }
-*/
-//    allLines: [self.row1, self.row2, self.row3, self.col1, self.col2, self.col3, self.diag1, self.diag2]
 }
 
 /**
@@ -255,28 +244,55 @@ function checkVictoryCondition(whosCondition){
 
     // checking for a winning line
 
-    let allPlayerSymbols = false;
-    let line = "";
+    let playerSymbolCount = 0;
     for (let key in board){
+        console.log(board[key]);
+        // excludes not needed keys from checking
         if (["centre"].includes(key)){ continue; }
-        allPlayerSymbols = false;
-        for (let key2 in board[key]){
+
+        playerSymbolCount = 0;
+        let key2;
+        for (key2 in board[key]){
             console.log(board[key][key2]);
-            if(getDOMElementValue(board[key][key2]) !== symbol ){
+            if(getDOMElementValue(board[key][key2]) === symbol ){
+                playerSymbolCount += 1;
+                if (playerSymbolCount === 3){
+                    return board[key];
+                }
+            } else {
                 break;
             }
-        }
-        if (allPlayerSymbols){
-            return board[key];
         }
     }
     return [];
 }
 
+
+/**
+ * Sets visuals and game conditions when player is a winner
+ */
+function playerWon(){
+
+}
+
+
 /**
  * When clicked on button "Submit move"
  */
 function evBtSubmitMove(){
+
+    // for testing purposes only
+    setDOMElementValue("cell-1", "X");
+//    setDOMElementValue("cell-2", "X");
+    setDOMElementValue("cell-3", "X");
+//    setDOMElementValue("cell-4", "X");
+    setDOMElementValue("cell-5", "X");
+//    setDOMElementValue("cell-6", "X");
+//    setDOMElementValue("cell-7", "X");
+    setDOMElementValue("cell-8", "X");
+    setDOMElementValue("cell-9", "X");
+    // EOF testing purposes only
+
     // adds class "occupied" to player move
     let cell = null;
     for (let i=1; i< 10; i++){
@@ -287,17 +303,13 @@ function evBtSubmitMove(){
     }
 
     let winnerLine = checkVictoryCondition("player");
+
+    console.log(winnerLine);
+
     if(winnerLine !== []){
         playerWon(winnerLine);
     }
 };
-
-/**
- * Sets visuals and game conditions when player is a winner
- */
-function playerWon(){
-
-}
 
 /**
  * when event fired on button Start game/ Clear
