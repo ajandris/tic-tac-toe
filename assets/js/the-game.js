@@ -9,7 +9,7 @@
 /**
  * Sets game parameters
  *
- * @type {{scoreDraw: number, level: string, scorePlayer: number, scoreComputer: number, starts: string, player: string, status: string}}
+ * @type {{scoreDraw: number, level: string, scorePlayer: number, moveCount: number, scoreComputer: number, starts: string, player: string, status: string}}
  */
 const game = {
     player: "X",
@@ -125,12 +125,26 @@ function resetScore(){
 /**
  * Increments score by one
  *
- * @param scoreId
+ * @param whatScore Which score to increment
  */
-function incrementScore(scoreId) {
+function incrementScore(whatScore) {
+    let scoreId = "";
+    switch(whatScore){
+        case "player":
+            scoreId = "score-player";
+            break;
+        case "computer":
+            scoreId = "score-computer";
+            break;
+        case "draw":
+            scoreId = "score-draw";
+            break;
+        default:
+            console.log("No such score as: " + whatScore);
+    }
     let score = getDOMElementValue(scoreId);
-    score = score + 1;
-    setDOMElementValue(scoreId, score);
+    let finalScore = Number(score) + 1;
+    setDOMElementValue(scoreId, finalScore.toString());
 }
 
 /* **************************************************************
@@ -170,11 +184,60 @@ const setMessage = (msgType, msgFirstLine, msgSecondLine) =>{
     document.getElementById("msg-line-2").innerText = msgSecondLine;
 };
 
+/**
+ * Resets the game to a starting position
+ */
+const resetGame = () =>{
+    game.status = "before-start";
+    game.moveCount = 0;
+    document.getElementById("bt-start-clear").innerText = "Start game";
+    // enables/disables buttons
+    document.getElementById("bt-give-up").disabled = true;
+    document.getElementById("setup-starts").disabled = false;
+    document.getElementById("setup-player").disabled = false;
+    document.getElementById("setup-level").disabled = false;
+    document.getElementById("bt-reset").disabled = false;
+    document.getElementById("bt-submit-move").disabled = true;
+    document.getElementById("bt-start-clear").disabled = false;
+
+    // clear the board
+    let cell = null;
+    for (let i=1; i< 10; i++){
+         cell = getDOMObjectById("cell-" + i.toString());
+         cell.innerText = "";
+         cell.classList.remove("occupied");
+    }
+}
+
 
 /**
  * when event fired on button Give Up
  */
 function evBtGiveUp(){
+    if (confirm("Do you really want to finish game?\nYou will loose this round.") === true){
+        game.status = "game-finished";
+        incrementScore("computer");
+
+        //  Checks if board needs to be clear
+        let isBoardClear = true;
+        for (let i=1; i< 10; i++){
+            if (getDOMElementValue("cell-" + i.toString()) !== ""){
+                isBoardClear = false;
+                break;
+            }
+        }
+
+        if (!isBoardClear){
+            // enables/disables buttons
+            document.getElementById("bt-give-up").disabled = true;
+            document.getElementById("bt-submit-move").disabled = true;
+            document.getElementById("bt-start-clear").disabled = false;
+            document.getElementById("bt-start-clear").innerText = "Clear the board";
+        } else {
+            resetGame();
+        }
+
+    };
 };
 
 /**
@@ -189,15 +252,19 @@ function evBtSubmitMove(){
  * Allows game to be started
  */
 function evBtStartClear(){
+    if (game.status === "game-finished"){
+        resetGame();
+        return;
+    }
     game.status = "game-started";
-    // enables buttons
+    game.moveCount = 0;
+    // enables/disables buttons
     document.getElementById("bt-give-up").disabled = false;
     document.getElementById("bt-start-clear").disabled = true;
-    // disables buttons
-    document.getElementById("settings-starts").disabled = true;
-    document.getElementById("settings-player").disabled = true;
-    document.getElementById("settings-level").disabled = true;
-
+    document.getElementById("setup-starts").disabled = true;
+    document.getElementById("setup-player").disabled = true;
+    document.getElementById("setup-level").disabled = true;
+    document.getElementById("bt-reset").disabled = true;
 };
 
 /**
@@ -207,6 +274,7 @@ function evBtStartClear(){
  */
 
 function evCellClick(domObject){
+    let btObjSubmitMove = getDOMObjectById("bt-submit-move");
 
     if (game.status !== "game-started"){
         setMessage("alert", "Game is not started", "Click on \"Start game\" button");
@@ -221,6 +289,7 @@ function evCellClick(domObject){
     }
 
     if (!domObject.classList.contains("occupied") && domObject.innerText !== "") {
+        btObjSubmitMove.disabled = true;
         domObject.innerText = "";
         return;
     }
@@ -233,7 +302,6 @@ function evCellClick(domObject){
     domObject.innerText = game.player;
 
     // enables button "Submit move"
-    let btObjSubmitMove = getDOMObjectById("bt-submit-move");
     btObjSubmitMove.disabled = false;
 };
 
@@ -296,9 +364,9 @@ document.getElementById("bt-reset").addEventListener("click", resetScore);
 * Listeners for the game buttons
  */
 
-document.getElementById("bt-give-up").addEventListener("click", evBtGiveUp());
-document.getElementById("bt-submit-move").addEventListener("click", evBtSubmitMove());
-document.getElementById("bt-start-clear").addEventListener("click", evBtStartClear());
+document.getElementById("bt-give-up").addEventListener("click", evBtGiveUp);
+document.getElementById("bt-submit-move").addEventListener("click", evBtSubmitMove);
+document.getElementById("bt-start-clear").addEventListener("click", evBtStartClear);
 
 let cellId="";
 for (let i= 1; i < 10; i++){
