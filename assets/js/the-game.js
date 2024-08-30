@@ -299,6 +299,38 @@ function computerWon(cellsIdsArray){
     }
 }
 
+/**
+ * Checks draw condition
+ *
+ * @returns {boolean} returns false if game board has an empty cell
+ */
+function isDraw(){
+    for (let i = 1; i < 10; i++){
+        if (document.getElementById("cell-"+ i.toString()).innerText === ""){
+            return false;
+        }
+    }
+    return true;
+};
+
+/**
+ * Calculates RANDOM move
+ */
+
+function getRandomComputerMoveCellId(){
+    let cellId = "";
+
+    return cellId;
+};
+
+/**
+ * calculates move according to the algorithm
+ */
+function getCalculatedComputerMoveCellId(){
+    let cellId = "";
+
+    return cellId;
+};
 
 /**
  * When clicked on button "Submit move"
@@ -310,13 +342,13 @@ function evBtSubmitMove(){
     }
 
     // for testing purposes only
-    setDOMElementValue("cell-1", "O");
+    setDOMElementValue("cell-1", "X");
     setDOMElementValue("cell-2", "O");
-    setDOMElementValue("cell-3", "O");
-//    setDOMElementValue("cell-4", "X");
+    setDOMElementValue("cell-3", "X");
+    setDOMElementValue("cell-4", "X");
     setDOMElementValue("cell-5", "O");
-//    setDOMElementValue("cell-6", "X");
-//    setDOMElementValue("cell-7", "X");
+    setDOMElementValue("cell-6", "O");
+    setDOMElementValue("cell-7", "O");
     setDOMElementValue("cell-8", "X");
     setDOMElementValue("cell-9", "X");
     // EOF testing purposes only
@@ -335,23 +367,40 @@ function evBtSubmitMove(){
     */
 
     let winnerLine = checkVictoryCondition("player");
-    console.log(winnerLine);
     if(winnerLine.length > 0){
         playerWon(winnerLine);
         setMessage("ok", messages.msg1, messages.msg4);
         game.status = "game-finished";
         setVictoryButtons();
-        console.log("user won: " + winnerLine);
+        incrementScore("player");
         return;
     }
+
+    if(isDraw()){
+        setMessage("ok", messages.msg3, messages.msg4);
+        game.status = "game-finished";
+        setVictoryButtons();
+        incrementScore("draw");
+        return;
+    }
+
+
 
     /*
 
     Computer moves
 
      */
+    game.moveCount += 1;
 
-    console.log("computer moves here");
+    let moveCellId = "";
+    if (game.level === "EASY" || (game.level === "MODERATE" && game.moveCount === 1)){
+        moveCellId = getRandomComputerMoveCellId();
+    } else {
+        moveCellId = getCalculatedComputerMoveCellId();
+    }
+
+    console.log("Computer move" + moveCellId);
 
     /*
     Checking computer win condition
@@ -363,7 +412,7 @@ function evBtSubmitMove(){
         setMessage("ok", messages.msg2, messages.msg4);
         game.status = "game-finished";
         setVictoryButtons();
-        console.log("computer won: " + winnerLine);
+        incrementScore("computer");
         return;
     }
 };
@@ -393,6 +442,7 @@ function setVictoryButtons(){
 function evBtStartClear(){
     if (game.status === "game-finished"){
         resetGame();
+        setMessage("ok", "Fancy another game?", "Press \"Start\" button.");
         return;
     }
     setMessage("ok", "Game started!", "Pick a cell.");
