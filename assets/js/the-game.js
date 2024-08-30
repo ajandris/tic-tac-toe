@@ -337,10 +337,151 @@ function getRandomComputerMoveCellId(){
  * calculates move according to the algorithm
  */
 function getCalculatedComputerMoveCellId(){
-    let cellId = "";
+    let moveCellId = "";
+    let line  = [];
+    let oddCells = [];
+    let compSymbol = game.computer;
+    let playerSymbol = game.player;
 
-    return cellId;
-};
+    // check immediate wins
+    for (let key in board){
+        if (key !== "centre") {
+            line = board[key];
+            oddCells = [];
+            for (let val in line) {
+                if (getDOMElementValue(line[val]) !== compSymbol) {
+                    oddCells.push(line[val]);
+                }
+            }
+            if (oddCells.length ===1 && getDOMElementValue(oddCells[0]) === ""){
+                return oddCells[0];
+            }
+        }
+    }
+
+    // check immediate threats
+    for (let key in board){
+        if (key !== "centre") {
+            line = board[key];
+            oddCells = [];
+            for (let val in line) {
+                if (getDOMElementValue(line[val]) !== playerSymbol) {
+                    oddCells.push(line[val]);
+                }
+            }
+            if (oddCells.length ===1 && getDOMElementValue(oddCells[0]) === ""){
+                return oddCells[0];
+            }
+        }
+    }
+
+
+    // Place the computer’s symbol in the centre if empty
+    if (getDOMElementValue(board.centre) === ""){
+        return board.centre;
+    }
+
+    // Place the computer’s symbol in the corner of two empty lines
+
+    /**
+     *  Helper function to check if line is empty
+     */
+    const isEmptyLine = (line) => {
+        for(let i = 0; i < 3; i++){
+            if(getDOMElementValue(line[i]) !== ""){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+    Checks rows 1 and 3, and columns 1 and 3 as center should be occupied from previous steps
+     */
+
+    if (isEmptyLine(board.row1)){
+        if (isEmptyLine(board.col1)){
+            return "cell-1";
+        } else if (isEmptyLine(board.col3)) {
+            return "cell-3";
+        }
+    }
+
+    if (isEmptyLine(board.row3)){
+        if (isEmptyLine(board.col1)){
+            return "cell-7";
+        } else if (isEmptyLine(board.col3)) {
+            return "cell-9";
+        }
+    }
+
+    // Place the computer’s symbol in the corner of one empty line and a single computer’s symbol on another line
+
+    /**
+     *  Helper function to check if line is empty
+     */
+    const doesNotHavePlayerSymbols = (line) => {
+        for(let i = 0; i < 3; i++){
+            if(getDOMElementValue(line[i]) === game.player){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+    Checks rows 1 and 3, and columns 1 and 3 as center should be occupied from previous steps
+     */
+
+    if (isEmptyLine(board.row1)){
+        if(doesNotHavePlayerSymbols(board.col1)){
+            return "cell-1";
+        } else if (doesNotHavePlayerSymbols(board.col3)){
+            return "cell-3";
+        }
+    }
+
+    if (isEmptyLine(board.row3)){
+        if(doesNotHavePlayerSymbols(board.col1)){
+            return "cell-7";
+        } else if (doesNotHavePlayerSymbols(board.col3)){
+            return "cell-9";
+        }
+    }
+
+    if (isEmptyLine(board.col1)){
+        if(doesNotHavePlayerSymbols(board.row1)){
+            return "cell-1";
+        } else if (doesNotHavePlayerSymbols(board.row3)){
+            return "cell-7";
+        }
+    }
+
+    if (isEmptyLine(board.col3)){
+        if(doesNotHavePlayerSymbols(board.row1)){
+            return "cell-3";
+        } else if (doesNotHavePlayerSymbols(board.row3)){
+            return "cell-9";
+        }
+    }
+
+    // Place the computer’s symbol on the other corner of the line with a computer’s symbol.
+    let rowCols = [board.row1, board.row3, board.col1, board.col3]
+
+    for (let key in rowCols) {
+        line = rowCols[key];
+        if (doesNotHavePlayerSymbols(line) && !isEmptyLine(line)) {
+            if (getDOMElementValue(line[0]) !== "") {
+                return line[2];
+            } else if (getDOMElementValue(line[2]) !== "") {
+                return line[0];
+            }
+        }
+    }
+
+    // there are no winning combinations left
+    return getRandomComputerMoveCellId();
+}
 
 /**
  * When clicked on button "Submit move"
@@ -350,18 +491,6 @@ function evBtSubmitMove(){
     if (game.status !== "game-started"){
         return;
     }
-
-    // for testing purposes only
-//    setDOMElementValue("cell-1", "X");
-//    setDOMElementValue("cell-2", "O");
-//    setDOMElementValue("cell-3", "X");
-//    setDOMElementValue("cell-4", "X");
-//    setDOMElementValue("cell-5", "O");
-//    setDOMElementValue("cell-6", "O");
-//    setDOMElementValue("cell-7", "O");
-//    setDOMElementValue("cell-8", "X");
-//    setDOMElementValue("cell-9", "X");
-    // EOF testing purposes only
 
     // adds class "occupied" to player move
     let cell = null;
@@ -412,8 +541,6 @@ function evBtSubmitMove(){
         moveCellId = getCalculatedComputerMoveCellId();
     }
 
-    console.log("Computer move, cell: " + moveCellId);
-
     // make a move
     setDOMElementValue(moveCellId, game.computer);
     setMessage("ok", "Your move!", "");
@@ -443,9 +570,8 @@ function evBtSubmitMove(){
         game.status = "game-finished";
         setVictoryButtons();
         incrementScore("draw");
-        return;
     }
-};
+}
 
 /**
  * Enables/disables buttons on victory
@@ -530,7 +656,7 @@ function evCellClick(domObject){
 
     // enables button "Submit move"
     btObjSubmitMove.disabled = false;
-};
+}
 
 
 /* **************************************************************
