@@ -319,7 +319,17 @@ function isDraw(){
 
 function getRandomComputerMoveCellId(){
     let cellId = "";
+    let freeCells = [];
+    for (let i = 1; i < 10; i++){
+        if (document.getElementById("cell-"+ i.toString()).innerText === ""){
+            freeCells.push("cell-"+ i.toString());
+        }
+    }
 
+    // Picks a cell by index
+    let id = Math.floor(Math.random() * freeCells.length);
+
+    cellId = freeCells[id];
     return cellId;
 };
 
@@ -342,15 +352,15 @@ function evBtSubmitMove(){
     }
 
     // for testing purposes only
-    setDOMElementValue("cell-1", "X");
-    setDOMElementValue("cell-2", "O");
-    setDOMElementValue("cell-3", "X");
-    setDOMElementValue("cell-4", "X");
-    setDOMElementValue("cell-5", "O");
-    setDOMElementValue("cell-6", "O");
-    setDOMElementValue("cell-7", "O");
-    setDOMElementValue("cell-8", "X");
-    setDOMElementValue("cell-9", "X");
+//    setDOMElementValue("cell-1", "X");
+//    setDOMElementValue("cell-2", "O");
+//    setDOMElementValue("cell-3", "X");
+//    setDOMElementValue("cell-4", "X");
+//    setDOMElementValue("cell-5", "O");
+//    setDOMElementValue("cell-6", "O");
+//    setDOMElementValue("cell-7", "O");
+//    setDOMElementValue("cell-8", "X");
+//    setDOMElementValue("cell-9", "X");
     // EOF testing purposes only
 
     // adds class "occupied" to player move
@@ -376,6 +386,10 @@ function evBtSubmitMove(){
         return;
     }
 
+    /*
+    Checking draw condition
+    */
+
     if(isDraw()){
         setMessage("ok", messages.msg3, messages.msg4);
         game.status = "game-finished";
@@ -383,8 +397,6 @@ function evBtSubmitMove(){
         incrementScore("draw");
         return;
     }
-
-
 
     /*
 
@@ -394,19 +406,26 @@ function evBtSubmitMove(){
     game.moveCount += 1;
 
     let moveCellId = "";
-    if (game.level === "EASY" || (game.level === "MODERATE" && game.moveCount === 1)){
+    if (game.level.toUpperCase() === "EASY"){
         moveCellId = getRandomComputerMoveCellId();
     } else {
         moveCellId = getCalculatedComputerMoveCellId();
     }
 
-    console.log("Computer move" + moveCellId);
+    console.log("Computer move, cell: " + moveCellId);
+
+    // make a move
+    setDOMElementValue(moveCellId, game.computer);
+    setMessage("ok", "Your move!", "");
+    getDOMObjectById(moveCellId).classList.add("occupied");
+
+    // prevents pressing submit more than once
+    document.getElementById("bt-submit-move").disabled = true;
 
     /*
     Checking computer win condition
      */
     winnerLine = checkVictoryCondition("computer");
-    console.log(winnerLine);
     if(winnerLine.length > 0){
         computerWon(winnerLine);
         setMessage("ok", messages.msg2, messages.msg4);
@@ -415,12 +434,22 @@ function evBtSubmitMove(){
         incrementScore("computer");
         return;
     }
+    /*
+    Checking draw condition
+    */
+
+    if(isDraw()){
+        setMessage("ok", messages.msg3, messages.msg4);
+        game.status = "game-finished";
+        setVictoryButtons();
+        incrementScore("draw");
+        return;
+    }
 };
 
 /**
  * Enables/disables buttons on victory
  */
-
 function setVictoryButtons(){
     document.getElementById("bt-give-up").disabled = true;
     document.getElementById("bt-submit-move").disabled = true;
@@ -445,9 +474,11 @@ function evBtStartClear(){
         setMessage("ok", "Fancy another game?", "Press \"Start\" button.");
         return;
     }
+
     setMessage("ok", "Game started!", "Pick a cell.");
     game.status = "game-started";
     game.moveCount = 0;
+
     // enables/disables buttons
     document.getElementById("bt-give-up").disabled = false;
     document.getElementById("bt-start-clear").disabled = true;
@@ -455,6 +486,10 @@ function evBtStartClear(){
     document.getElementById("setup-player").disabled = true;
     document.getElementById("setup-level").disabled = true;
     document.getElementById("bt-reset").disabled = true;
+
+    if (game.starts === "computer"){
+        evBtSubmitMove();
+    }
 };
 
 /**
@@ -486,7 +521,9 @@ function evCellClick(domObject){
 
     // removing all symbols from unoccupied cells
     for (let i=1; i < 10; i++){
-        setDOMElementValue("cell-" + i.toString(), "");
+        if (!getDOMObjectById("cell-" + i.toString()).classList.contains("occupied")) {
+            setDOMElementValue("cell-" + i.toString(), "");
+        }
     }
 
     domObject.innerText = game.player;
