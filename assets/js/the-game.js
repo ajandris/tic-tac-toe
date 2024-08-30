@@ -1,3 +1,4 @@
+"use strict"
 /**
  * Tic-Tac-Toe game
  *
@@ -9,10 +10,11 @@
 /**
  * Sets game parameters
  *
- * @type {{scoreDraw: number, level: string, scorePlayer: number, moveCount: number, scoreComputer: number, starts: string, player: string, status: string}}
+ * @type {{scoreDraw: number, level: string, scorePlayer: number, moveCount: number, scoreComputer: number, starts: string, player: string, computer: string, status: string}}
  */
 const game = {
     player: "X",
+    computer: "O",
     starts: "player",
     level: "easy",
     scorePlayer: 0,
@@ -181,12 +183,14 @@ function resetGame(){
     document.getElementById("bt-submit-move").disabled = true;
     document.getElementById("bt-start-clear").disabled = false;
 
+
     // clear the board
     let cell = null;
     for (let i=1; i< 10; i++){
          cell = getDOMObjectById("cell-" + i.toString());
          cell.innerText = "";
          cell.classList.remove("occupied");
+         cell.style = null;
     }
 }
 
@@ -238,7 +242,7 @@ function checkVictoryCondition(whosCondition){
             symbol = game.player;
             break;
         case "computer":
-            symbol = (game.player === "O")? "X": "O";
+            symbol = game.computer;
             break;
     }
 
@@ -246,33 +250,53 @@ function checkVictoryCondition(whosCondition){
 
     let playerSymbolCount = 0;
     for (let key in board){
-        console.log(board[key]);
         // excludes not needed keys from checking
         if (["centre"].includes(key)){ continue; }
 
         playerSymbolCount = 0;
         let key2;
         for (key2 in board[key]){
-            console.log(board[key][key2]);
             if(getDOMElementValue(board[key][key2]) === symbol ){
                 playerSymbolCount += 1;
-                if (playerSymbolCount === 3){
-                    return board[key];
-                }
-            } else {
-                break;
             }
+        }
+        if (playerSymbolCount === 3){
+            return board[key];
         }
     }
     return [];
 }
 
+/**
+ * Sets visuals when player is a winner
+ *
+ * @param cellsIdsArray IDs of winning cells
+ */
+function playerWon(cellsIdsArray){
+    let fontColor = "green";
+
+    let cell = null;
+    for (let key in cellsIdsArray){
+        cell = getDOMObjectById(cellsIdsArray[key]);
+        cell.style.color = fontColor;
+        cell.style.fontWeight = "900";
+    }
+}
 
 /**
- * Sets visuals and game conditions when player is a winner
+ * Sets visuals when computer is a winner
+ *
+ * @param cellsIdsArray IDs of winning cells
  */
-function playerWon(){
+function computerWon(cellsIdsArray){
+    let fontColor = "red";
 
+    let cell = null;
+    for (let key in cellsIdsArray){
+        cell = getDOMObjectById(cellsIdsArray[key]);
+        cell.style.color = fontColor;
+        cell.style.fontWeight = "900";
+    }
 }
 
 
@@ -281,12 +305,16 @@ function playerWon(){
  */
 function evBtSubmitMove(){
 
+    if (game.status !== "game-started"){
+        return;
+    }
+
     // for testing purposes only
-    setDOMElementValue("cell-1", "X");
-//    setDOMElementValue("cell-2", "X");
-    setDOMElementValue("cell-3", "X");
+    setDOMElementValue("cell-1", "O");
+    setDOMElementValue("cell-2", "O");
+    setDOMElementValue("cell-3", "O");
 //    setDOMElementValue("cell-4", "X");
-    setDOMElementValue("cell-5", "X");
+    setDOMElementValue("cell-5", "O");
 //    setDOMElementValue("cell-6", "X");
 //    setDOMElementValue("cell-7", "X");
     setDOMElementValue("cell-8", "X");
@@ -302,14 +330,60 @@ function evBtSubmitMove(){
         }
     }
 
+    /*
+    Checking player win condition
+    */
+
     let winnerLine = checkVictoryCondition("player");
-
     console.log(winnerLine);
-
-    if(winnerLine !== []){
+    if(winnerLine.length > 0){
         playerWon(winnerLine);
+        setMessage("ok", messages.msg1, messages.msg4);
+        game.status = "game-finished";
+        setVictoryButtons();
+        console.log("user won: " + winnerLine);
+        return;
+    }
+
+    /*
+
+    Computer moves
+
+     */
+
+    console.log("computer moves here");
+
+    /*
+    Checking computer win condition
+     */
+    winnerLine = checkVictoryCondition("computer");
+    console.log(winnerLine);
+    if(winnerLine.length > 0){
+        computerWon(winnerLine);
+        setMessage("ok", messages.msg2, messages.msg4);
+        game.status = "game-finished";
+        setVictoryButtons();
+        console.log("computer won: " + winnerLine);
+        return;
     }
 };
+
+/**
+ * Enables/disables buttons on victory
+ */
+
+function setVictoryButtons(){
+    document.getElementById("bt-give-up").disabled = true;
+    document.getElementById("bt-submit-move").disabled = true;
+    document.getElementById("bt-start-clear").disabled = false;
+    document.getElementById("setup-starts").disabled = true;
+    document.getElementById("setup-player").disabled = true;
+    document.getElementById("setup-level").disabled = true;
+    document.getElementById("bt-reset").disabled = true;
+
+    document.getElementById("bt-start-clear").innerText = "Clear the board";
+
+}
 
 /**
  * when event fired on button Start game/ Clear
@@ -321,6 +395,7 @@ function evBtStartClear(){
         resetGame();
         return;
     }
+    setMessage("ok", "Game started!", "Pick a cell.");
     game.status = "game-started";
     game.moveCount = 0;
     // enables/disables buttons
@@ -350,7 +425,7 @@ function evCellClick(domObject){
         setMessage("alert", "Wrong move.", "Click on the unoccupied box.");
         return;
     } else {
-        setMessage("ok", "", "");
+        setMessage("ok", "Good!", "Keep going");
     }
 
     if (!domObject.classList.contains("occupied") && domObject.innerText !== "") {
@@ -384,16 +459,17 @@ document.getElementById("setup-player").addEventListener("change", (e)=>{
         let symbol = "";
         switch(e.target.value){
             case "donut":
-                symbol = "O";
+                game.player = "O";
+                game.computer = "X";
                 break;
             case "cross":
-                symbol = "X";
+                game.player = "X";
+                game.computer = "O";
                 break;
             default:
                 console.log("Impossible value in setup-player select");
                 return;
         }
-        game.player = symbol;
         setDOMElementValue("settings-player", symbol);
     }
 )
