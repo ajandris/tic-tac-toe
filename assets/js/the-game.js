@@ -16,7 +16,7 @@ const game = {
     player: "X",
     computer: "O",
     starts: "player",
-    level: "easy",
+    level: "easy",  // easy, medium and pro
     scorePlayer: 0,
     scoreComputer: 0,
     scoreDraw: 0,
@@ -528,14 +528,14 @@ function evBtSubmitMove(){
     }
 
     /*
-
+    *
     Computer moves
-
+    *
      */
     game.moveCount += 1;
 
     let moveCellId = "";
-    if (game.level.toUpperCase() === "EASY"){
+    if (game.level.toUpperCase() === "EASY" || (game.level.toUpperCase() === "MEDIUM" && game.moveCount === 1)){
         moveCellId = getRandomComputerMoveCellId();
     } else {
         moveCellId = getCalculatedComputerMoveCellId();
@@ -674,10 +674,12 @@ document.getElementById("setup-player").addEventListener("change", (e)=>{
             case "donut":
                 game.player = "O";
                 game.computer = "X";
+                symbol = "O";
                 break;
             case "cross":
                 game.player = "X";
                 game.computer = "O";
+                symbol = "X";
                 break;
             default:
                 console.log("Impossible value in setup-player select");
