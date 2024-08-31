@@ -25,6 +25,12 @@ h1{
     margin: 2px;
 }
 
+.logo{
+    width: 35px;
+    height:35px;
+    aspect-ratio: auto;
+}
+
 .msg-first-line{
     font-size: 1.5em;
     font-weight: bold;
