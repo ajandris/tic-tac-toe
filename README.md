@@ -1,7 +1,10 @@
 # TIC-TAC-TOE game
-
+<img src="assets/readme/amiresponsive.jpg" style="max-width: 75%;">
 
 ## Gameplay
+
+<a href="https://ajandris.github.io/tic-tac-toe/">Play the game on GitHub</a>
+
 1. The Board:
 
    * You have a 3x3 grid (a total of 9 squares).
@@ -24,18 +27,27 @@
 
    * If a player manages to get three of their marks in a row, they win!
    * The winning line can be:
-   * Horizontal (across a row)
-   * Vertical (down a column)
-   * Diagonal (from one corner to the opposite corner)
+     * Horizontal (across a row)
+     * Vertical (down a column)
+     * Diagonal (from one corner to the opposite corner)
 
-6. Ties:
+6. Ties (draw):
 
-   * If all nine squares are filled, and neither player has achieved three in a row, the game ends in a tie.
+   * If all nine squares are filled, and neither player has achieved three in a row, the game ends in a tie (draw).
 
 7. Zero-Sum Game:
 
    * Tic-Tac-Toe is a zero-sum game. This means that if both players play optimally, the game will always end in a tie.
    * However, with some simple strategies, you can increase your chances of winning.
+
+8. User can set up preferences:
+   * symbol to play with ("X" or "O"),
+   * difficulty level (easy, medium or pro),
+   * who starts the game: player or computer.
+
+9. Settings user is playing with are shown on the block Settings.
+
+10. Block "Score" shows the summary result in series of played games. Button "Reset" sets all results to zero.
 
 
 ## Used Technologies
@@ -50,9 +62,8 @@ Some other utilities were used:
 
 * JetBrains WebStorm as Integrated Development Environment.
 * GitHub to store code and version control.
+* GitHub Pages for publishing the game.
 * Grammarly to catch grammar slips and improve the text.
-* Fooocus (https://github.com/lllyasviel/Fooocus) to generate the background image.
-* Balsamiq Wireframes.
 
 # Development
 This part is dedicated to the page's development.
@@ -65,29 +76,28 @@ This part is dedicated to the page's development.
 - [X] Scope plane
 - [X] Structure plane
 - [X] Skeleton Plane
-- [ ] Surface Plane
+- [X] Surface Plane
 
 ### Functionality description
 
 ### Page designs
-- [ ] Game page
-- [ ] 404 error page
+- [X] Game page
+- [X] 404 error page
 
 ### Testing
 - [ ] Testing description
 - [ ] Validator test screenshots for each page
 
 ### Deployment
-
-- [ ] JEST installation
-- [ ] Test file structure
+- [ ] the game page
+- [ ] 404 page
 
 
 ### Other
 - [ ] Acknowledgements
-- [ ] Site's Description
+- [X] Site's Description
 - [ ] Update wireframes
-- [ ] Update gameplay in introduction
+- [X] Update gameplay in introduction
 
 ## The Development process
 The Development of this site includes consequently following the stages described in detail in the next sections:
@@ -97,8 +107,7 @@ The Development of this site includes consequently following the stages describe
 * At the start of the design comes the Structure plane, where wireframes are used to design sketches of the pages.
 * The result of a Skeleton plane is the Site’s navigation.
 * The last in Development comes the Surface plane, where all design is completed for various screen sizes and audiences. This plane includes all JavaScript functionality.
-* Then comes the Site testing, which is performed manually using Jigsaw (CSS) and W3 Validator (HTML). Google’s Lighthouse test is used to test the site’s performance.
-The site's functionality development falls under Test Driven Development (TDD) and is tested using JEST.
+* Then comes the Site testing, which is performed manually, using Jigsaw (CSS) and W3 Validator (HTML). Google’s Lighthouse test is used to test the site’s performance.
 
 ### Strategy plane
 
@@ -116,7 +125,7 @@ The site's functionality development falls under Test Driven Development (TDD) a
 #### Intended audience
 The Tic-Tac-Toe game has entertainment purpose and can be used for everyone willing to play the game.
 
-As a site owner I would like to show everyone my skills in HTML, CSS and JavaScript with automated testing, so everyone assessing my skills can evaluate them.
+As a site owner I would like to show everyone my skills in HTML, CSS and JavaScript, so everyone can evaluate them.
 
 ### Scope plane
 At the end of development will be delivered:
