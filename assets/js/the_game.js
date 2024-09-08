@@ -52,7 +52,7 @@ const messages = {
     msg1: "Congratulations! You won.",
     msg2: "I won. Good luck next time.",
     msg3: "Draw.",
-    msg4: "Press \"Clear\" to clear the board and start another game."
+    msg4: "Press \"Clear\" to clear the board."
 }
 
 /**
