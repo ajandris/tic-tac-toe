@@ -465,6 +465,26 @@ _…_
 The code contained no errors. However, cell styles did not reset between games. I resolved this issue by adding the code _cell.style = null;_ in the _resetGame_ function.
 
 ### Deployment
+The site is deployed on GitHub Pages.
+
+<img src="assets/readme/deployment.jpg" alt="GitHub project deployment screen" style="width:70%">
+
+To deploy a project on GitHub Pages:
+
+1. Navigate to your project
+2. Select Settings on the top menu (1)
+3. Select Pages on the left side menu (2)
+4. On the main page content:
+
+    4.1. Select Deploy from Branch
+
+    4.2. Select Branch. Usually, for small project it is main and directory /(root)
+
+    4.3. Press Save button
+
+Be patient, as the pages might take approximately a minute to populate. When they are ready, links in a box will appear at the top of the main content.
+
+When updating code, it might take seconds for changes to appear on the GitHub pages.
 
 ### Acknowledgements
 
