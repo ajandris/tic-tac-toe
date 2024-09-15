@@ -343,6 +343,127 @@ The main content box background colour with opacity: rgba(30, 42, 48, 0.75)
 
 ### Testing
 
+Software testing, a crucial step in software development, is the process of evaluating and verifying whether a software application meets its expected requirements and functions correctly, ensuring the end product is of high quality and meets user expectations.
+
+It aims to identify defects, bugs, or missing features in contrast to the specified requirements.
+
+Essentially, it answers two critical questions:
+
+- Is the software built the right way? (does the software correctly implement specific functions?)
+- Is it the right product?” (does the software align with customer requirements or user stories?)
+
+This project uses manual testing and acceptance testing.
+
+During **manual testing**, the test operator manually checks if the system works as expected by going through all screens and simulating end-user behaviour. The user interface is also checked for look and feel during this test. In web development, web pages are tested against different screen sizes, browsers, and operation systems.
+
+The functionality of the system can be automated using test scripts. For that purpose, **automated tests** are used. Automated tests are helpful for large projects to ensure the new functionality does not change old behaviour. They increase testing speed but add extra work for writing them. One of the testing frameworks for JavaScript is Jest. Automated tests are not used for this project as the project has no continuity, and writing tests adds extra work.
+
+**Acceptance tests** ensure that all user requirements are met. In this project, they are user stories.
+
+#### Acceptance test
+
+| **Test id** | **User story id** | **User story description** | **Pass/Fail** | **Additional info**                                                                                                                                                                                       |
+| --- | --- | --- | --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TUSP-1 | USP-1 | I want to play the Tic-Tac-Toe game. | Pass | <a href="assets/readme/amiresponsive.jpg">Link</a>                                                                                                                                                        |
+| TUSP-2 | USP-2 | I want three difficulty levels in the game: Easy, Moderate, and Advanced. | Pass | <a href="assets/readme/testing/pass/difficulty_level.jpg">Link</a>                                                                                                                                        |
+| TUSP-3 | USP-3 | I want to add a Settings section where the user can choose what symbol to play, whether to start the game and what difficulty level to play. | Pass | There is a <a href="assets/readme/testing/pass/setup.jpg">Setup</a> section where user can do so. <a href="assets/readme/testing/pass/settings.jpg">Settings</a> section shows what are current settings. |
+| TUSP-4 | USP-4 | I want to count the score of the game series. | Pass | <a href="assets/readme/testing/pass/score.jpg">Score section</a> shows results of the game series.                                                                                                        |
+| TUSO-1 | USO-1 | I want to implement the Tic-Tac-Toe game using JavaScript, HTML and CSS only. | Pass | The <a href="assets/readme/testing/pass/project_structure.jpg">project structure</a> shows only html, css, js and image files.                                                                            |
+| TUSO-2 | USO-2 | I want to improve the game's accessibility by adding a 404 Error (file not found) page with a link to the game page. | Pass | <a href="404.html">404.html</a> file is added.                                                                                                                                                            |
+
+#### Page validations
+
+**_HTML validator (_**[**_https://validator.w3.org/_**](https://validator.w3.org/)**_)_**
+
+**Main page**
+
+There were some errors; see the <a href="assets/readme/testing/errors/html_errors_main_page.jpg">error link</a>.
+
+After fix: <a href="assets/readme/testing/pass/html_pass_main_page.jpg">pass link</a>.
+
+**404 page**
+
+Tested by uploading the file 404.html.
+
+There were some errors; see the <a href="assets/readme/testing/errors/html_errors_404_page.jpg">error link</a>.
+
+After fix: <a href="assets/readme/testing/pass/html_pass_404_page.jpg">pass link</a>.
+
+**_Jigsaw CSS validator (_**[**_https://jigsaw.w3.org/css-validator_**](https://jigsaw.w3.org/css-validator)**_)_**
+
+**Main page**
+
+No errors in custom CSS: <a href="assets/readme/testing/pass/css_pass_main.jpg">link</a>.
+
+There are w3.css (external library) warnings: <a href="assets/readme/testing/pass/css_warnings_w3.jpg">link</a>. I cannot fix those as it is a third-party library.
+
+**404 page**
+
+Tested by uploading the file errors.css.
+
+No errors in custom CSS: <a href="assets/readme/testing/pass/css_pass_main.jpg">link</a>.
+
+There are possible w3.css (external library) warnings (could not be validated by the link as the server returns a 404 error): link.
+
+**_Lighthouse (_**[**_https://web.dev/measure/_**](https://web.dev/measure/)**_)_**
+
+The first test gave me an accessibility of 85% (<a href="assets/readme/testing/pass/lighthouse_mobile.jpg">see image</a>). The reason was the insufficient colour contrast in the message box (<a href="assets/readme/testing/pass/lighthouse_accessibility_mobile.jpg">screenshot</a>).
+
+After changing colours in the message box and for fonts, the Lighthouse test gave me a 93% accessibility score for <a href="assets/readme/testing/pass/accessibility_mobile_pass.jpg">mobile</a> 
+and 100% for <a href="assets/readme/testing/pass/lighthouse_desktop_pass.jpg">desktop</a>.
+
+#### JavaScript validation
+
+I tested two types of JavaScript errors: formal syntax and functionality.
+
+**Formal syntax validation (**[**https://beautifytools.com/javascript-validator.php**](https://beautifytools.com/javascript-validator.php)**)**
+
+The tool showed me multiple errors. Type of those errors:
+
+1. Missing semicolon,
+2. Use the function form of "use strict",
+3. The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype,
+4. 'arrow function syntax (=>)' is only available in ES6 (use 'esversion: 6'),
+5. Unnecessary semicolon,
+6. &lt;variable&gt; is defined but never used,
+7. Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (evCellClick).
+
+Causes and solutions:
+
+1. Added semicolon,
+2. Error is to avoid using “use strict” in a global cope. Wrap all code in the main function and call that function at the end of the page.  
+   function main(){  
+   “use strict”;  
+   // code here  
+   }  
+   main();
+3. For (let key in array) loops through all properties, including inherited from the prototype. The solution is to check if the key is the array’s property with  
+   if(array.hasOwnProperty(key)){  
+   // for loop code here  
+   };
+4. Tried to use as a jshint ‘esversion:6’ in various combinations. That did not help eliminate all the errors. My solution was to change the ES6 function syntax to the old way.
+5. Deleted semicolon,
+6. Deleted variable,
+7. Error refers to event listeners for game board cells created in a loop and calling the same function. The confusion and, therefore, the error’s concern are eliminated by passing the event target to the function and then identifying which cell fired the event.
+
+**Functionality tests**
+
+Interface-related scripts are tested by clicking on the screen and seeing whether they work. No errors were found.
+
+Game logic is tested by adding code to the functions to emulate the movement state where the branch of tested code should enter.
+
+The board state is emulated by adding code for each cell before calling the function _getCalculatedComputerMoveCellId_ in the function _evBtSubmitMove_ with necessary values:
+
+_document.getElementById("cell-1").innerText = "X";_
+
+_document.getElementById("cell-2").innerText = "O";_
+
+_document.getElementById("cell-1").innerText = "";_
+
+_…_
+
+The code contained no errors. However, cell styles did not reset between games. I resolved this issue by adding the code _cell.style = null;_ in the _resetGame_ function.
+
 ### Deployment
 
 ### Acknowledgements
@@ -351,3 +472,5 @@ The main content box background colour with opacity: rgba(30, 42, 48, 0.75)
 _Word To MD_, online, https://word2md.com/. Last accessed 19/08/2024
 
 _W3Schools_, https://www.w3schools.com/. Last accessed 24/08/2024
+
+_Accessible color palette generator_, https://venngage.com/tools/accessible-color-palette-generator. Last accessed 15/09/2024

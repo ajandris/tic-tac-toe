@@ -357,16 +357,18 @@ function main(){
 
         // check immediate wins
         for (let key in board){
-            if (key !== "centre") {
-                line = board[key];
-                oddCells = [];
-                for (let val in line) {
-                    if (getDOMElementValue(line[val]) !== compSymbol) {
-                        oddCells.push(line[val]);
+            if (board.hasOwnProperty(key)) {
+                if (key !== "centre") {
+                    line = board[key];
+                    oddCells = [];
+                    for (let val in line) {
+                        if (getDOMElementValue(line[val]) !== compSymbol) {
+                            oddCells.push(line[val]);
+                        }
                     }
-                }
-                if (oddCells.length ===1 && getDOMElementValue(oddCells[0]) === ""){
-                    return oddCells[0];
+                    if (oddCells.length === 1 && getDOMElementValue(oddCells[0]) === "") {
+                        return oddCells[0];
+                    }
                 }
             }
         }
