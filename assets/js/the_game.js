@@ -154,10 +154,10 @@ const setMessage = (msgType, msgFirstLine, msgSecondLine) =>{
 
     switch(msgType){
         case "alert":
-            objMessages.classList.add("w3-yellow");
+            objMessages.classList.add("message_warning");
             break;
         case "ok":
-            objMessages.classList.add("w3-green");
+            objMessages.classList.add("message_ok");
             break;
         default:
             console.log("Unknown message type: " + msgType);
@@ -628,7 +628,7 @@ function evCellClick(domObject){
     let btObjSubmitMove = getDOMObjectById("bt-submit-move");
 
     if (game.status !== "game-started"){
-        setMessage("alert", "Game is not started", "Click on \"Start game\" button");
+        setMessage("alert", "Game is not started", "Click on \"Start game\" or \"Clear the board\" button");
         return;
     }
 

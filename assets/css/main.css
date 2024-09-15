@@ -91,6 +91,16 @@ button{
     border-bottom: 2px solid #000;
 }
 
+.message_ok{
+    background-color: #89ce00;
+    color: black;
+}
+
+.message_warning{
+    background-color: #f57600;
+    color: black;
+}
+
 @media screen and (max-width: 660px) { /*  for mobile screens*/
     #playground{
         width:95%;
