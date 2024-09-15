@@ -432,15 +432,20 @@ Causes and solutions:
 
 1. Added semicolon,
 2. Error is to avoid using “use strict” in a global cope. Wrap all code in the main function and call that function at the end of the page.  
-   function main(){  
+    ```
+    function main(){  
    “use strict”;  
    // code here  
    }  
    main();
+   ```
 3. For (let key in array) loops through all properties, including inherited from the prototype. The solution is to check if the key is the array’s property with  
-   if(array.hasOwnProperty(key)){  
+    ```
+    if(array.hasOwnProperty(key)){
    // for loop code here  
    };
+    ```
+
 4. Tried to use as a jshint ‘esversion:6’ in various combinations. That did not help eliminate all the errors. My solution was to change the ES6 function syntax to the old way.
 5. Deleted semicolon,
 6. Deleted variable,
@@ -453,16 +458,13 @@ Interface-related scripts are tested by clicking on the screen and seeing whethe
 Game logic is tested by adding code to the functions to emulate the movement state where the branch of tested code should enter.
 
 The board state is emulated by adding code for each cell before calling the function _getCalculatedComputerMoveCellId_ in the function _evBtSubmitMove_ with necessary values:
-
-_document.getElementById("cell-1").innerText = "X";_
-
-_document.getElementById("cell-2").innerText = "O";_
-
-_document.getElementById("cell-1").innerText = "";_
-
-_…_
-
-The code contained no errors. However, cell styles did not reset between games. I resolved this issue by adding the code _cell.style = null;_ in the _resetGame_ function.
+```
+document.getElementById("cell-1").innerText = "X";
+document.getElementById("cell-2").innerText = "O";
+document.getElementById("cell-1").innerText = "";
+…
+```
+The code contained no errors. However, cell styles did not reset between games. I resolved this issue by adding the code `cell.style = null;` in the _resetGame_ function.
 
 ### Deployment
 The site is deployed on GitHub Pages.
