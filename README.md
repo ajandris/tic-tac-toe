@@ -472,21 +472,25 @@ The site is deployed on GitHub Pages.
 To deploy a project on GitHub Pages:
 
 1. Navigate to your project
-2. Select Settings on the top menu (1)
-3. Select Pages on the left side menu (2)
+2. Select *Settings* on the top menu (1)
+3. Select *Pages* on the left side menu (2)
 4. On the main page content:
 
-    4.1. Select Deploy from Branch
+    4.1. Select *Deploy from Branch*
 
-    4.2. Select Branch. Usually, for small project it is main and directory /(root)
+    4.2. Select *Branch*. Usually, for small project it is *main* and directory */(root)*
 
-    4.3. Press Save button
+    4.3. Press *Save* button
 
 Be patient, as the pages might take approximately a minute to populate. When they are ready, links in a box will appear at the top of the main content.
 
 When updating code, it might take seconds for changes to appear on the GitHub pages.
 
 ### Acknowledgements
+
+I sincerely thank my tutor, Rachel Furlong, for her patient guidance and unwavering patience in online sessions. Her expertise and encouragement have been instrumental in my coding journey.
+
+I am deeply grateful to my mentor, Martina Terlevic, for hers unwavering support and insightful critiques throughout my coding journey. Hers guidance has been invaluable.
 
 ### References
 _Word To MD_, online, https://word2md.com/. Last accessed 19/08/2024
