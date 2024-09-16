@@ -85,18 +85,18 @@ This part is dedicated to the page's development.
 - [X] 404 error page
 
 ### Testing
-- [ ] Testing description
-- [ ] Validator test screenshots for each page
+- [X] Testing description
+- [X] Validator test screenshots for each page
 
 ### Deployment
-- [ ] the game page
-- [ ] 404 page
+- [X] the game page
+- [X] 404 page
 
 
 ### Other
-- [ ] Acknowledgements
+- [X] Acknowledgements
 - [X] Site's Description
-- [ ] Update wireframes
+- [X] Update wireframes
 - [X] Update gameplay in introduction
 
 ## The Development process
@@ -107,7 +107,7 @@ The Development of this site includes consequently following the stages describe
 * At the start of the design comes the Structure plane, where wireframes are used to design sketches of the pages.
 * The result of a Skeleton plane is the Site’s navigation.
 * The last in Development comes the Surface plane, where all design is completed for various screen sizes and audiences. This plane includes all JavaScript functionality.
-* Then comes the Site testing, which is performed manually, using Jigsaw (CSS) and W3 Validator (HTML). Google’s Lighthouse test is used to test the site’s performance.
+* Then comes the Site testing, which is performed manually, using Jigsaw (CSS) and W3 Validator (HTML). Google’s Lighthouse test is used to test the site’s performance. JavaScript syntax is tested using Beautify Tools.
 
 ### Strategy plane
 
@@ -148,11 +148,11 @@ The game's behaviour requirements are described in a separate section below.
 
 #### Game page wireframe
 
-<img src="assets/readme/wireframes/the-game.jpg" alt="The Game Page wireframe" style="width:60%; height:60%">
+<img src="assets/readme/wireframes/the_game.jpg" alt="The Game Page wireframe" style="width:60%; height:60%">
 
 #### 404 Error page wireframe
 
-<img src="assets/readme/wireframes/error-page.jpg" alt="404 Error page wireframe" style="width:60%; height:60%">
+<img src="assets/readme/wireframes/error_page.jpg" alt="404 Error page wireframe" style="width:60%; height:60%">
 
 ## Skeleton Plane
 
@@ -256,8 +256,8 @@ When the move is decided, a player clicks on the “Submit move” button.
 
 If there are three player’s symbols in one row, column or diagonal, the player has won:
 
-1. Messages MSG1 and MSG5 (on a second line) are displayed in the message block on a green background. MSG1 is bold.
-2. Players’ symbols are displayed green and flashed for 5 seconds.
+1. Messages MSG1 and MSG5 (on a second line) are displayed in the message block on a light green background. MSG1 is bold.
+2. Players’ symbols are displayed green and bold.
 3. Players’ score is incremented by one.
 
 If after the player’s move, there are no more empty cells on the board (draw):
@@ -290,17 +290,16 @@ There are consecutive checks to perform. When a move condition is met, no furthe
 3. Place the computer’s symbol in the centre if empty.
 4. Place the computer’s symbol in the corner of two empty lines.
 5. Place the computer’s symbol in the corner of one empty line and a single computer’s symbol on another line.
-6. Place the computer’s symbol on the line with a computer’s symbol.
-7. Place the computer’s symbol on the last available cell (draw).
+6. Place the computer’s symbol on the last available cell (draw).
 
 When a move is chosen, check the victory conditions:
 
 1. Three computer symbols are on one line (row, column or diagonal):
-    1. Messages MSG2 and MSG5 (on a second line) are displayed on a light red background in the message block. MSG2 is bold.
-    2. The computer’s symbols are displayed in red and flashed for 5 seconds.
+    1. Messages MSG2 and MSG5 (on a second line) are displayed on a light green background in the message block. MSG2 is bold.
+    2. The computer’s symbols are displayed in red and bold.
     3. The computer’s score is incremented by one.
 2. no more empty cells (draw):
-    1. Messages MSG3 and MSG5 (on a second line) are displayed in the message block on a white background. MSG2 is bold.
+    1. Messages MSG3 and MSG5 (on a second line) are displayed in the message block on a light green background. MSG2 is bold.
     2. The draw score is incremented by one.
 
 **After game**
@@ -329,8 +328,10 @@ Due to the small project size, there is no design mock-up, and all elements will
 
 ***Colour pattern***
 
-* Page background:
-* Font colour: 
+* Page background: #FAFAFA
+* Font colour: black
+* Normal message box background: #89ce00
+* Warning message box background: #f57600
 * Game board - empty cell: #FFFFFF
 * Game board - occupied cell: grey
  
@@ -369,7 +370,7 @@ The functionality of the system can be automated using test scripts. For that pu
 | TUSP-3 | USP-3 | I want to add a Settings section where the user can choose what symbol to play, whether to start the game and what difficulty level to play. | Pass | There is a <a href="assets/readme/testing/pass/setup.jpg">Setup</a> section where user can do so. <a href="assets/readme/testing/pass/settings.jpg">Settings</a> section shows what are current settings. |
 | TUSP-4 | USP-4 | I want to count the score of the game series. | Pass | <a href="assets/readme/testing/pass/score.jpg">Score section</a> shows results of the game series.                                                                                                        |
 | TUSO-1 | USO-1 | I want to implement the Tic-Tac-Toe game using JavaScript, HTML and CSS only. | Pass | The <a href="assets/readme/testing/pass/project_structure.jpg">project structure</a> shows only html, css, js and image files.                                                                            |
-| TUSO-2 | USO-2 | I want to improve the game's accessibility by adding a 404 Error (file not found) page with a link to the game page. | Pass | <a href="404.html">404.html</a> file is added.                                                                                                                                                            |
+| TUSO-2 | USO-2 | I want to improve the game's accessibility by adding a 404 Error (file not found) page with a link to the game page. | Pass | <a href="assets/readme/testing/pass/404html.jpg">404.html</a> file is added.                                                                                                                              |
 
 #### Page validations
 
@@ -409,7 +410,7 @@ There are possible w3.css (external library) warnings (could not be validated by
 
 The first test gave me an accessibility of 85% (<a href="assets/readme/testing/pass/lighthouse_mobile.jpg">see image</a>). The reason was the insufficient colour contrast in the message box (<a href="assets/readme/testing/pass/lighthouse_accessibility_mobile.jpg">screenshot</a>).
 
-After changing colours in the message box and for fonts, the Lighthouse test gave me a 93% accessibility score for <a href="assets/readme/testing/pass/accessibility_mobile_pass.jpg">mobile</a> 
+After changing colours in the message box and for fonts, the Lighthouse test gave me a 93% accessibility score for <a href="assets/readme/testing/pass/lightgouse_mobile_pass.jpg">mobile</a> 
 and 100% for <a href="assets/readme/testing/pass/lighthouse_desktop_pass.jpg">desktop</a>.
 
 #### JavaScript validation
