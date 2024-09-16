@@ -410,7 +410,7 @@ There are possible w3.css (external library) warnings (could not be validated by
 
 The first test gave me an accessibility of 85% (<a href="assets/readme/testing/pass/lighthouse_mobile.jpg">see image</a>). The reason was the insufficient colour contrast in the message box (<a href="assets/readme/testing/pass/lighthouse_accessibility_mobile.jpg">screenshot</a>).
 
-After changing colours in the message box and for fonts, the Lighthouse test gave me a 93% accessibility score for <a href="assets/readme/testing/pass/lightgouse_mobile_pass.jpg">mobile</a> 
+After changing colours in the message box and for fonts, the Lighthouse test gave me a 93% accessibility score for <a href="assets/readme/testing/pass/lighthouse_mobile_pass.jpg">mobile</a> 
 and 100% for <a href="assets/readme/testing/pass/lighthouse_desktop_pass.jpg">desktop</a>.
 
 #### JavaScript validation
